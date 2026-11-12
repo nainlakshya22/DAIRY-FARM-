@@ -1,6 +1,27 @@
 const menuToggle = document.querySelector(".menu-toggle");
 const mainNav = document.querySelector(".main-nav");
 const siteHeader = document.querySelector(".site-header");
+const navLinks = mainNav ? [...mainNav.querySelectorAll('a[href^="#"]')] : [];
+
+function updateActiveNav() {
+  const activePoint = (siteHeader?.getBoundingClientRect().bottom ?? 0) + 40;
+  let activeLink = null;
+
+  navLinks.forEach((link) => {
+    const section = document.querySelector(link.getAttribute("href"));
+    if (section) {
+      const bounds = section.getBoundingClientRect();
+      if (bounds.top <= activePoint && bounds.bottom > activePoint) activeLink = link;
+    }
+  });
+
+  navLinks.forEach((link) => {
+    const isActive = link === activeLink;
+    link.classList.toggle("is-active", isActive);
+    if (isActive) link.setAttribute("aria-current", "location");
+    else link.removeAttribute("aria-current");
+  });
+}
 
 function closeMenu() {
   if (!menuToggle || !mainNav) return;
@@ -32,6 +53,7 @@ if (menuToggle && mainNav) {
 function updateHeader() {
   if (!siteHeader) return;
   siteHeader.classList.toggle("is-scrolled", window.scrollY > 12);
+  updateActiveNav();
 }
 
 updateHeader();
