@@ -17,6 +17,12 @@ python -m http.server 8000
 
 Then visit `http://localhost:8000`.
 
+## Public website
+
+The site is deployed to GitHub Pages when changes are pushed to the `main`
+branch. After the first deployment completes, it will be available at
+https://nainlakshya22.github.io/DAIRY-FARM-/.
+
 Before using the contact section, replace the sample phone number, email address,
 and location in `index.html` with your farm's contact details. The contact form
 opens an email draft in the visitor's default mail app.
